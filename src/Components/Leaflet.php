@@ -19,6 +19,8 @@ class Leaflet extends Component
 
     public array $markers;
 
+    public array $polygons;
+
     public $tileHost;
 
     public $mapId;
@@ -30,6 +32,7 @@ class Leaflet extends Component
     public function __construct(
         $centerPoint = [0,0],
         $markers = [],
+        $polygons = [],
         $zoomLevel = 13,
         $maxZoomLevel = 18,
         $tileHost = 'openstreetmap',
@@ -42,6 +45,7 @@ class Leaflet extends Component
         $this->zoomLevel = $zoomLevel;
         $this->maxZoomLevel = $maxZoomLevel;
         $this->markers = $markers;
+        $this->polygons = $polygons;
         $this->tileHost = $tileHost;
         $this->mapId = $id;
         $this->attribution = $attribution;
@@ -61,6 +65,7 @@ class Leaflet extends Component
             'zoomLevel' => $this->zoomLevel,
             'maxZoomLevel' => $this->maxZoomLevel,
             'markers' => $this->markers,
+            'polygons' => $this->polygons,
             'markerArray' => $markerArray,
             'tileHost' => $this->tileHost,
             'mapId' => $this->mapId === self::DEFAULTMAPID ? Str::random() : $this->mapId,

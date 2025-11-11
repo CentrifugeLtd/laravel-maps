@@ -41,6 +41,17 @@
     @endif
     @endforeach
 
+    @foreach($polygons as $polygon)
+        var polygon = L.polygon([
+        @foreach($polygon as $point)
+            [{{$point['lat'] ?? $point[0]}}, {{$point['long'] ?? $point[1]}}]
+            @if(!$loop->last) , @endif
+        @endforeach
+        ], {color:'purple'}
+        );
+        polygon.addTo(mymap);
+    @endforeach
+
     @if($tileHost === 'mapbox')
         let url{{$mapId}} = 'https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={{config('maps.mapbox.access_token', null)}}';
     @elseif($tileHost === 'openstreetmap')
