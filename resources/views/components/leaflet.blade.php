@@ -23,6 +23,12 @@
 <script>
 
     var mymap = L.map('{{$mapId}}').setView([{{$centerPoint['lat'] ?? $centerPoint[0]}}, {{$centerPoint['long'] ?? $centerPoint[1]}}], {{$zoomLevel}});
+    @if(count($bounds)==2)
+        mymap.fitBounds([
+            [{{$bounds[0]['lat']}},{{$bounds[0]['long']}}],
+            [{{$bounds[1]['lat']}},{{$bounds[1]['long']}}],
+        ]);
+    @endif
     @foreach($markers as $marker)
      @if(isset($marker['icon']))
        var icon = L.icon({

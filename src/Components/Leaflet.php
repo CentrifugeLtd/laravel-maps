@@ -17,6 +17,8 @@ class Leaflet extends Component
 
     public array $centerPoint;
 
+    public array $bounds;
+
     public array $markers;
 
     public array $polygons;
@@ -31,6 +33,7 @@ class Leaflet extends Component
 
     public function __construct(
         $centerPoint = [0,0],
+        $bounds =[],
         $markers = [],
         $polygons = [],
         $zoomLevel = 13,
@@ -42,6 +45,7 @@ class Leaflet extends Component
     )
     {
         $this->centerPoint = $centerPoint;
+        $this->bounds = $bounds;
         $this->zoomLevel = $zoomLevel;
         $this->maxZoomLevel = $maxZoomLevel;
         $this->markers = $markers;
@@ -62,6 +66,7 @@ class Leaflet extends Component
 
         return view('maps::components.leaflet', [
             'centerPoint' => $this->centerPoint,
+            'bounds' => $this->bounds,
             'zoomLevel' => $this->zoomLevel,
             'maxZoomLevel' => $this->maxZoomLevel,
             'markers' => $this->markers,
