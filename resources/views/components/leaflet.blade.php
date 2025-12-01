@@ -22,11 +22,11 @@
         crossorigin=""></script>
 <script>
 
-    var mymap = L.map('{{$mapId}}').setView([{{$centerPoint['lat'] ?? $centerPoint[0]}}, {{$centerPoint['long'] ?? $centerPoint[1]}}], {{$zoomLevel}});
+    var mymap = L.map('{{$mapId}}').setView([{{$centerPoint['lat'] ?? $centerPoint[0]}}, {{$centerPoint['long'] ?? $centerPoint[1]}}]@if($zoomLevel>=0), {{$zoomLevel}}@endif);
     @if(count($bounds)==2)
         mymap.fitBounds([
             [{{$bounds[0]['lat']}},{{$bounds[0]['long']}}],
-            [{{$bounds[1]['lat']}},{{$bounds[1]['long']}}],
+            [{{$bounds[1]['lat']}},{{$bounds[1]['long']}}]
         ]);
     @endif
     @foreach($markers as $marker)
