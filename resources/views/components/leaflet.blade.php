@@ -43,11 +43,11 @@
 
     @foreach($polygons as $polygon)
         var polygon = L.polygon([
-        @foreach($polygon as $point)
-            [{{$point['lat'] ?? $point[0]}}, {{$point['long'] ?? $point[1]}}]
+        @foreach($polygon['points'] as $point)
+            [{{$point['lat']}}, {{$point['long']}}]
             @if(!$loop->last) , @endif
         @endforeach
-        ], {color:'purple'}
+        ], {color:'{{ $polygon['color']??'gray' }}'}
         );
         polygon.addTo(mymap);
     @endforeach
@@ -66,4 +66,8 @@
         tileSize: 512,
         zoomOffset: -1
     }).addTo(mymap);
+
+
+setTimeout(function(){ mymap.invalidateSize()}, 100);
+
 </script>
