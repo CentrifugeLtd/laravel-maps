@@ -22,11 +22,11 @@
         crossorigin=""></script>
 <script>
 
-    var mymap = L.map('{{$mapId}}').setView([{{$centerPoint['lat'] ?? $centerPoint[0]}}, {{$centerPoint['long'] ?? $centerPoint[1]}}]@if($zoomLevel>=0), {{$zoomLevel}}@endif);
+    var mymap = L.map('{{$mapId}}').setView([{{$centerPoint['lat'] ?? $centerPoint['latitude'] ?? $centerPoint[0]}}, {{$centerPoint['long'] ?? $centerPoint['longitude'] ?? $centerPoint[1]}}]@if($zoomLevel>=0), {{$zoomLevel}}@endif);
     @if(count($bounds)==2)
         mymap.fitBounds([
-            [{{$bounds[0]['lat']}},{{$bounds[0]['long']}}],
-            [{{$bounds[1]['lat']}},{{$bounds[1]['long']}}]
+            [{{$bounds[0]['lat']??$bounds[0]['latitude']??$bounds[0][0]}},{{$bounds[0]['long']??$bounds[0]['longitude']??$bounds[0][1]}}],
+            [{{$bounds[1]['lat']??$bounds[1]['latitude']??$bounds[1][0]}},{{$bounds[1]['long']??$bounds[1]['longitude']??$bounds[1][1]}}]
         ]);
     @endif
     @foreach($markers as $marker)
@@ -36,7 +36,7 @@
         iconSize: [{{$marker['iconSizeX'] ?? 32}} , {{ $marker['iconSizeY'] ?? 32 }}],
        });
      @endif
-    var marker = L.marker([{{$marker['lat'] ?? $marker[0]}}, {{$marker['long'] ?? $marker[1]}}]
+    var marker = L.marker([{{$marker['lat'] ?? $marker['latitude'] ?? $marker[0]}}, {{$marker['long'] ?? $marker['longitude'] ?? $marker[1]}}]
     @if(isset($marker['icon']))
      , {icon: icon}
     @endif
@@ -50,7 +50,7 @@
     @foreach($polygons as $polygon)
         var polygon = L.polygon([
         @foreach($polygon['points'] as $point)
-            [{{$point['lat']}}, {{$point['long']}}]
+            [{{$point['lat']??$point['latitude']}}, {{$point['long']??$point['longitude']}}]
             @if(!$loop->last) , @endif
         @endforeach
         ], {color:'{{ $polygon['color']??'gray' }}'}
