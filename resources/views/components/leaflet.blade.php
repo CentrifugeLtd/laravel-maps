@@ -43,7 +43,11 @@
     );
     marker.addTo(mymap);
     @if(isset($marker['info']))
-    marker.bindPopup(@json($marker['info']));
+        popupContent='<p class="font-bold">{{ $marker['info'] }}</p>';
+        @if(isset($marker['image']))
+            popupContent+='<p><img src="{{ $marker['image'] }}"></p>';
+        @endif
+        marker.bindPopup(popupContent);
     @endif
     @endforeach
 
@@ -56,6 +60,9 @@
         ], {color:'{{ $polygon['color']??'gray' }}'}
         );
         polygon.addTo(mymap);
+        @if(isset($polygon['name']) && $polygon['name']!='')
+        polygon.bindTooltip("{{ $polygon['name']??'' }}");
+        @endif
     @endforeach
 
     @if($tileHost === 'mapbox')
