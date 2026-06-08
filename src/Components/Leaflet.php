@@ -58,12 +58,6 @@ class Leaflet extends Component
 
     public function render() : View
     {
-        $markerArray = [];
-
-        foreach($this->markers as $marker) {
-            $markerArray[] = [implode(",", $marker)];
-        }
-
         return view('maps::components.leaflet', [
             'centerPoint' => $this->centerPoint,
             'bounds' => $this->bounds,
@@ -71,7 +65,6 @@ class Leaflet extends Component
             'maxZoomLevel' => $this->maxZoomLevel,
             'markers' => $this->markers,
             'polygons' => $this->polygons,
-            'markerArray' => $markerArray,
             'tileHost' => $this->tileHost,
             'mapId' => $this->mapId === self::DEFAULTMAPID ? Str::random() : $this->mapId,
             'attribution' => $this->attribution,

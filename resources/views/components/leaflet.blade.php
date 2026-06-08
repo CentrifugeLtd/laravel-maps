@@ -47,6 +47,14 @@
         @if(isset($marker['image']))
             popupContent+='<p><img src="{{ $marker['image'] }}"></p>';
         @endif
+        @if(isset($marker['additional_data']))
+        @php
+            ray($marker['additional_data']);
+        @endphp
+        @foreach($marker['additional_data'] as $key=>$value)
+            popupContent+='<p><strong class="font-bold">{{ $key }}</strong>: {{ $value }}</p>';
+        @endforeach
+        @endif
         marker.bindPopup(popupContent);
     @endif
     @endforeach
